@@ -10,13 +10,24 @@ object Application extends Controller {
 
   val form = Form(
    single(
-     "status" -> of[models.code.Status](models.code.Status.formatter)
+     "status" -> of[models.code.Status]
    )
+  )
+
+  val form2 = Form(
+    single(
+      "tel" -> of[models.code.TelType]
+    )
   )
 
   def index = Action { implicit request =>
 
     form.bindFromRequest.fold(
+      errors => println(errors),
+      status => println(status)
+    )
+
+    form2.bindFromRequest.fold(
       errors => println(errors),
       status => println(status)
     )

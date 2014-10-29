@@ -34,7 +34,7 @@ trait Codes[V, T <: Code[V]] {
 trait NonNullCodes[V, T <: Code[V]] extends Codes[V, T] {
   def apply(value: V):T = values.find( _.value == value).get
 
-  override val formatter: Formatter[T] = new Formatter[T]{
+  implicit override val formatter: Formatter[T] = new Formatter[T]{
     override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], T] = {
       import scala.util.control.Exception._
       data.get(key) match {
